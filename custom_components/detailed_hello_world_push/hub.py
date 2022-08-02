@@ -56,7 +56,7 @@ class Roller:
         self.moving = 0
 
         # Some static information about this device
-        self.firmware_version = "0.0.{}".format(random.randint(1, 9))
+        self.firmware_version = f"0.0.{random.randint(1, 9)}"
         self.model = "Test Device"
 
     @property

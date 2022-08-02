@@ -28,8 +28,7 @@ async def async_setup_entry(hass, config_entry, async_add_devices):
 
     new_devices = []
     for roller in hub.rollers:
-        new_devices.append(BatterySensor(roller))
-        new_devices.append(IlluminanceSensor(roller))
+        new_devices.extend((BatterySensor(roller), IlluminanceSensor(roller)))
     if new_devices:
         async_add_devices(new_devices)
 
@@ -106,9 +105,7 @@ class BatterySensor(SensorBase):
     @property
     def device_state_attributes(self):
         """Return the state attributes of the device."""
-        attr = {}
-        attr[ATTR_VOLTAGE] = self._roller.battery_voltage
-        return attr
+        return {ATTR_VOLTAGE: self._roller.battery_voltage}
 
     # The value of this sensor. As this is a DEVICE_CLASS_BATTERY, this value must be
     # the battery level as a percentage (between 0 and 100)
